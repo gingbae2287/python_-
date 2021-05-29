@@ -6,7 +6,12 @@ from selenium.webdriver.common.keys import Keys
 import time
 import urllib.request
 
-driver = webdriver.Chrome()
+# driver = webdriver.Chrome()
+# 크롬창 띄우지 않고 실행 -headless
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+driver = webdriver.Chrome("chromedriver", options=options)
+# # # # # #
 driver.get("https://www.google.co.kr/imghp?hl=ko&ogbl")
 elem = driver.find_element_by_name("q")
 elem.clear()
