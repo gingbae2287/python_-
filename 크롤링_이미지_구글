@@ -17,38 +17,44 @@ elem.send_keys(u'\ue006')
 # 구글은 일정이미지 이상은 스크롤을 내려야 자동으로 로딩
 # 최대 스크롤까지 내려가면 이미지 더보기 버튼 눌러줘야함
 # 결과더보기 클래스=.mye4qd
-SCROLL_PAUSE_TIME = 1
+# SCROLL_PAUSE_TIME = 1
 
-# Get scroll height
-# 자바스크립트 코드로 브라우저 높이를 찾음
-last_height = driver.execute_script("return document.body.scrollHeight")
+# # Get scroll height
+# # 자바스크립트 코드로 브라우저 높이를 찾음
+# last_height = driver.execute_script("return document.body.scrollHeight")
 
-while True:
-    # Scroll down to bottom
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+# while True:
+#     # Scroll down to bottom
+#     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-    # Wait to load page
-    time.sleep(SCROLL_PAUSE_TIME)
+#     # Wait to load page
+#     time.sleep(SCROLL_PAUSE_TIME)
 
-    # Calculate new scroll height and compare with last scroll height
-    new_height = driver.execute_script("return document.body.scrollHeight")
-    if new_height == last_height:
-        try:
-            driver.find_element_by_css_selector(".mye4qd").click()
-        except:
-            break
-    last_height = new_height
+#     # Calculate new scroll height and compare with last scroll height
+#     new_height = driver.execute_script("return document.body.scrollHeight")
+#     if new_height == last_height:
+#         try:
+#             driver.find_element_by_css_selector(".mye4qd").click()
+#         except:
+#             break
+#     last_height = new_height
 
 ####################################3
 imgs=driver.find_elements_by_css_selector(".rg_i.Q4LuWd")
 count=1
 for img in imgs:
-    img.click()
-    time.sleep(3)
-    url=driver.find_element_by_css_selector(".n3VNCb").get_attribute("src")
-    img_name=f"madmonster{count}.jpg"
-    urllib.request.urlretrieve(url,"madmonster/"+img_name)
-    count=count+1
+    try:
+        img.click()
+        time.sleep(1)
+        # class selector로 검색하면 n3VNCb가 여러개라 xpath이용이 정확
+        # url=driver.find_element_by_css_selector(".n3VNCb").get_attribute("src")
+        url=driver.find_element_by_xpath('/html/body/div[2]/c-wiz/div[3]/div[2]/div[3]/div/div/div[3]/div[2]/c-wiz/div/div[1]/div[1]/div/div[2]/a/img').get_attribute("src")
+        img_name=f"madmonster{count}.jpg"
+        urllib.request.urlretrieve(url,"madmonster/"+img_name)
+        count=count+1
+    except:
+        pass
+driver.close()
 
 # cURL은 command line 기반의 웹 요청 도구. download, upload가능
 # os.system("curl "+url+" > madmonster.jpg")
