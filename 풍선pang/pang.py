@@ -22,6 +22,11 @@ pygame.display.set_caption("pang")
 clock=pygame.time.Clock()
 fps=setting.fps
 
+#시간 출력
+game_font=pygame.font.Font(None, 20) # 폰트 객체 생성
+total_time=0
+start_ticks=pygame.time.get_ticks() # 시작 tick을 받아옴
+
 background=pygame.image.load("image/background.png")
 
 # 캐릭터 설정
@@ -138,6 +143,13 @@ while running:
             pang_list[i].move(dt)
             screen.blit(pang_list[i].ball, (pang_list[i].x_pos,pang_list[i].y_pos))
         # 무기와 충돌
+
+    elapsed_time=100-int((pygame.time.get_ticks()-start_ticks)/1000)  # 경과시간
+    timer=game_font.render("time: %4s"%int(elapsed_time),True, (255,0,0))
+    screen.blit(timer, (20,20))
+    if elapsed_time==0:
+        running=False
+        print("Time Over")
 
 
     #screen.blit(pang[0], (pang_x_pos,pang_y_pos))
