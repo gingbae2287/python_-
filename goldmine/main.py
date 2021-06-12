@@ -25,8 +25,7 @@ clock=pygame.time.Clock()
 # 배경, 게임 이미지
 current_path=os.path.dirname(__file__)
 background=pygame.image.load(os.path.join(current_path, "images/background.png"))
-object_claw=pygame.image.load(os.path.join(current_path,"images/claw.png"))
-claw=Claw(object_claw, (screen_width//2, 50))
+
 
 # 게임 구동
 running=True
@@ -36,11 +35,14 @@ while running:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             running=False
+        
+        if event.type==pygame.MOUSEBUTTONDOWN:
+            claw.stop()
 
     screen.blit(background,(0,0))
     object_group.draw(screen)
-    claw.update()
-    screen.blit(claw,claw.rect)
+    claw.update(dt)
+    claw.draw(screen)
     pygame.display.update()
 
 
