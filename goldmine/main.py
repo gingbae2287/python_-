@@ -31,7 +31,7 @@ background=pygame.image.load(os.path.join(current_path, "images/background.png")
 
 # 게임 구동
 running=True
-tmp_time=0
+tmp_time=game_play_time
 # 집게 오브젝트 생성
 claw=Claw(object_claw, (screen_width/2, 50))
 # 처음에 오브젝트 3개 생성
@@ -51,14 +51,13 @@ while running:
     screen.blit(background,(0,0))   # 배경
     # 시간,점수 표시
     score=claw.score
-    time=int((pygame.time.get_ticks()-start_time)/1000)
-    timer=game_font.render("time: %4s"%time, True, (255,0,0))
+    time=game_play_time-int((pygame.time.get_ticks()-start_time)/1000)
+    timer=game_font.render("time left: %4s"%time, True, (255,0,0))
     score_board=game_font.render("score: %4s"%score,True,(0,0,0))
-    screen.blit(score_board, (100, 30))
-    screen.blit(timer, (screen_width-100, 30))
-
+    screen.blit(score_board, (50, 30))
+    screen.blit(timer, (screen_width-150, 30))
     # 오브젝트 다루기
-    if time-tmp_time==1:
+    if tmp_time-time==1:
         tmp_time=time
         # object_group=그룹 리스트
         if random.random()>len(object_group)/max_object_count:
@@ -68,10 +67,12 @@ while running:
     claw.draw(screen)
 
     pygame.display.update()
+    if time==0:
+        running=False
 
 
-
-
+print("최종 점수 :",score)
+pygame.time.wait(2000)
 pygame.quit()
 
 

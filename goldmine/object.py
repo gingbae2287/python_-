@@ -40,7 +40,7 @@ class object(pygame.sprite.Sprite):
         # 오브젝트  base설정
         super().__init__()
         if num<chance_of_gold:
-            self.w=random.randrange(gold_w-15,gold_w+15)
+            self.w=random.randrange(gold_w-15,gold_w+5)
             self.h=int(self.w*gold_h/gold_w)
             self.price=self.w
             self.weight=self.w/gold_w*2
@@ -55,7 +55,7 @@ class object(pygame.sprite.Sprite):
         elif num>=100-chance_of_stone:
             self.w=random.randrange(stone_w-30,stone_w)
             self.h=int(self.w*stone_h/stone_w)
-            self.price=int(self.w/5)
+            self.price=int(self.w/4)
             self.weight=self.w/stone_w*4
             self.image=pygame.transform.scale(object_stone,(self.w,self.h))
         while 1:
