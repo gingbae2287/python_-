@@ -1,5 +1,9 @@
 screen_width=800
 screen_height=640
 fps=30
-claw_angle_speed=0.1
-claw_speed=0.5
+claw_angle_speed=0.08
+claw_speed=0.4
+max_object_count=15
+chance_of_gold=60
+chance_of_dia=10
+chance_of_stone=100-chance_of_gold-chance_of_dia
